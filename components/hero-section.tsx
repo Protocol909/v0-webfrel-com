@@ -1,99 +1,48 @@
 "use client"
-
-import type React from "react"
-
-import { useRef, useEffect, type ReactNode } from "react"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles } from "lucide-react"
+import { Sparkles, ArrowRight } from "lucide-react"
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect"
-import { cn } from "@/lib/utils"
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient"
+import { LogoCloud } from "@/components/ui/logo-cloud"
 
-// Vertical Marquee Component
-interface VerticalMarqueeProps {
-  children: ReactNode
-  pauseOnHover?: boolean
-  reverse?: boolean
-  className?: string
-  speed?: number
-}
-
-function VerticalMarquee({
-  children,
-  pauseOnHover = false,
-  reverse = false,
-  className,
-  speed = 30,
-}: VerticalMarqueeProps) {
-  return (
-    <div
-      className={cn("group flex flex-col overflow-hidden h-full", className)}
-      style={
-        {
-          "--duration": `${speed}s`,
-        } as React.CSSProperties
-      }
-    >
-      <div
-        className={cn(
-          "flex shrink-0 flex-col animate-marquee-vertical",
-          reverse && "[animation-direction:reverse]",
-          pauseOnHover && "group-hover:[animation-play-state:paused]",
-        )}
-      >
-        {children}
-      </div>
-      <div
-        className={cn(
-          "flex shrink-0 flex-col animate-marquee-vertical",
-          reverse && "[animation-direction:reverse]",
-          pauseOnHover && "group-hover:[animation-play-state:paused]",
-        )}
-        aria-hidden="true"
-      >
-        {children}
-      </div>
-    </div>
-  )
-}
-
-const marqueeItems = ["Startups", "Enterprises", "Creatives", "Agencies", "E-commerce", "SaaS", "Innovators"]
+const logos = [
+  {
+    src: "https://svgl.app/library/nvidia-wordmark-light.svg",
+    alt: "Nvidia Logo",
+  },
+  {
+    src: "https://svgl.app/library/supabase_wordmark_light.svg",
+    alt: "Supabase Logo",
+  },
+  {
+    src: "https://svgl.app/library/openai_wordmark_light.svg",
+    alt: "OpenAI Logo",
+  },
+  {
+    src: "https://svgl.app/library/turso-wordmark-light.svg",
+    alt: "Turso Logo",
+  },
+  {
+    src: "https://svgl.app/library/vercel_wordmark.svg",
+    alt: "Vercel Logo",
+  },
+  {
+    src: "https://svgl.app/library/github_wordmark_light.svg",
+    alt: "GitHub Logo",
+  },
+  {
+    src: "https://svgl.app/library/claude-ai-wordmark-icon_light.svg",
+    alt: "Claude AI Logo",
+  },
+  {
+    src: "https://svgl.app/library/clerk-wordmark-light.svg",
+    alt: "Clerk Logo",
+  },
+]
 
 export function HeroSection() {
-  const marqueeRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const marqueeContainer = marqueeRef.current
-    if (!marqueeContainer) return
-
-    const updateOpacity = () => {
-      const items = marqueeContainer.querySelectorAll(".marquee-item")
-      const containerRect = marqueeContainer.getBoundingClientRect()
-      const centerY = containerRect.top + containerRect.height / 2
-
-      items.forEach((item) => {
-        const itemRect = item.getBoundingClientRect()
-        const itemCenterY = itemRect.top + itemRect.height / 2
-        const distance = Math.abs(centerY - itemCenterY)
-        const maxDistance = containerRect.height / 2
-        const normalizedDistance = Math.min(distance / maxDistance, 1)
-        const opacity = 1 - normalizedDistance * 0.7
-        ;(item as HTMLElement).style.opacity = Math.max(opacity, 0.2).toString()
-      })
-    }
-
-    const animationFrame = () => {
-      updateOpacity()
-      requestAnimationFrame(animationFrame)
-    }
-
-    const frame = requestAnimationFrame(animationFrame)
-
-    return () => cancelAnimationFrame(frame)
-  }, [])
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-12 lg:pt-0 lg:pb-0">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 sm:pt-32 md:pt-24 pb-12 lg:pb-0">
       <div className="absolute inset-0">
         <CanvasRevealEffect
           animationSpeed={3}
@@ -111,93 +60,84 @@ export function HeroSection() {
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
 
-      <div className="container mx-auto px-4 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center max-w-7xl mx-auto">
-          {/* Left Content */}
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10 w-full flex-1 flex flex-col justify-center">
+        {/* Main Content */}
+        <motion.div
+          className="text-center space-y-4 sm:space-y-6 md:space-y-8 max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           <motion.div
-            className="text-center lg:text-left space-y-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm mx-auto"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm mx-auto lg:mx-0"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <Sparkles className="w-4 h-4 text-white" />
-              <span className="text-sm text-muted-foreground">Next-level digital solutions</span>
-            </motion.div>
-
-            <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-balance leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              Build. Scale.
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-muted-foreground">
-                Elevate.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 text-balance"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              Full-service digital agency empowering startups, creators, and businesses to build professional,
-              high-performing online experiences.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              <Button size="lg" className="bg-white text-black hover:bg-white/90 group px-8 py-6 text-lg rounded-full">
-                Get Started
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/20 hover:bg-white/5 bg-transparent px-8 py-6 text-lg rounded-full text-white"
-              >
-                Explore Services
-              </Button>
-            </motion.div>
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+            <span className="text-xs sm:text-sm text-muted-foreground">Next-level digital solutions</span>
           </motion.div>
 
-          {/* Right Marquee */}
-          <div
-            ref={marqueeRef}
-            className="relative h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center animate-fade-in-up [animation-delay:400ms] w-full overflow-hidden mask-gradient-vertical"
+          <motion.h1
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold tracking-tight text-balance leading-tight px-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <div className="relative w-full h-full">
-              <VerticalMarquee speed={25} className="h-full">
-                {marqueeItems.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter py-6 marquee-item text-center lg:text-right text-white/90"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </VerticalMarquee>
+            Build. Scale.
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-muted-foreground">
+              Elevate.
+            </span>
+          </motion.h1>
 
-              {/* Top vignette */}
-              <div className="pointer-events-none absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black via-black/50 to-transparent z-10"></div>
+          <motion.p
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto text-balance px-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            Full-service digital agency empowering startups, creators, and businesses to build professional,
+            high-performing online experiences.
+          </motion.p>
 
-              {/* Bottom vignette */}
-              <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-            </div>
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            <HoverBorderGradient
+              containerClassName="rounded-full"
+              as="button"
+              className="bg-black text-white flex items-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base"
+            >
+              <ArrowRight className="w-4 h-4" />
+              <span>Book a Meeting</span>
+            </HoverBorderGradient>
+          </motion.div>
+        </motion.div>
+
+        {/* Trusted by companies section */}
+        <motion.div
+          className="mt-12 sm:mt-16 md:mt-24 relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+        >
+          <div className="mx-auto max-w-3xl px-4">
+            <h2 className="mb-4 sm:mb-5 text-center font-medium text-white text-base sm:text-lg md:text-xl tracking-tight">
+              <span className="text-muted-foreground">Trusted by experts.</span>
+              <br />
+              <span className="font-semibold">Used by the leaders.</span>
+            </h2>
+            <div className="mx-auto my-4 sm:my-5 h-px max-w-sm bg-white/20 [mask-image:linear-gradient(to_right,transparent,black,transparent)]" />
+
+            <LogoCloud logos={logos} />
+
+            <div className="mt-4 sm:mt-5 h-px bg-white/20 [mask-image:linear-gradient(to_right,transparent,black,transparent)]" />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Fade */}

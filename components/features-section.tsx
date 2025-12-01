@@ -1,4 +1,8 @@
+"use client"
+
 import { Zap, Shield, Rocket, Users } from "lucide-react"
+import { GridPatternCard, GridPatternCardBody } from "@/components/ui/grid-pattern-card"
+import { LearnMoreButton } from "@/components/ui/learn-more-button"
 
 const features = [
   {
@@ -33,24 +37,26 @@ export function FeaturesSection() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6">
             <span className="text-sm text-muted-foreground">Why Choose Us</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Built for Success</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Why Choose Webfrel?</h2>
           <p className="text-lg text-muted-foreground text-balance">
             We deliver exceptional results through proven methodologies and cutting-edge technology.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {features.map((feature, index) => (
-            <div
-              key={index}
-              className="text-center p-8 border border-white/10 rounded-lg bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm hover:border-white/20 transition-all duration-300"
-            >
-              <div className="w-16 h-16 rounded-full border border-white/20 bg-white/5 flex items-center justify-center mx-auto mb-6">
-                <feature.icon className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
-            </div>
+            <GridPatternCard key={index} className="h-full">
+              <GridPatternCardBody className="flex flex-col h-full">
+                <div className="w-12 h-12 rounded-full border border-white/20 bg-white/5 flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-white">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">{feature.description}</p>
+                <div className="mt-auto">
+                  <LearnMoreButton href="#contact" text="Learn More" />
+                </div>
+              </GridPatternCardBody>
+            </GridPatternCard>
           ))}
         </div>
       </div>

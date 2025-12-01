@@ -123,6 +123,12 @@
 
   /* Added vertical marquee animation */
   --animate-marquee-vertical: marquee-vertical 20s linear infinite;
+  /* Added accordion animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  /* Added grid pattern backgrounds for dark theme */
+  --bg-grid-pattern: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 800%22%3E%3Cg stroke-width=%223.5%22 stroke=%22hsla(0, 0%25, 100%25, 1.00)%22 fill=%22none%22%3E%3Crect width=%22400%22 height=%22400%22 x=%220%22 y=%220%22 opacity=%220.15%22%3E%3C/rect%3E%3Ccircle r=%2210.85%22 cx=%220%22 cy=%220%22 fill=%22hsla(0, 0%25, 100%25, 1.00)%22 stroke=%22none%22%3E%3C/circle%3E%3Crect width=%22400%22 height=%22400%22 x=%22400%22 y=%220%22 opacity=%220.15%22%3E%3C/rect%3E%3Ccircle r=%2210.85%22 cx=%22400%22 cy=%220%22 fill=%22hsla(0, 0%25, 100%25, 1.00)%22 stroke=%22none%22%3E%3C/circle%3E%3C/g%3E%3C/svg%3E");
 }
 
 @layer utilities {
@@ -201,6 +207,25 @@
   .animate-appear-zoom {
     animation: appear-zoom 0.5s ease-out forwards;
   }
+
+  /* Added accordion animations */
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
 }
 
 /* Custom mesh pattern backgrounds for Webfrel design */
@@ -216,6 +241,11 @@
   background-size: 30px 30px;
 }
 
+/* Added grid pattern background utility */
+.bg-grid-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Cg stroke-width=%220.5%22 stroke=%22hsla(0, 0%25, 100%25, 0.15)%22 fill=%22none%22%3E%3Crect width=%2250%22 height=%2250%22 x=%220%22 y=%220%22%3E%3C/rect%3E%3Ccircle r=%222%22 cx=%220%22 cy=%220%22 fill=%22hsla(0, 0%25, 100%25, 0.2)%22 stroke=%22none%22%3E%3C/circle%3E%3Crect width=%2250%22 height=%2250%22 x=%2250%22 y=%220%22%3E%3C/rect%3E%3Ccircle r=%222%22 cx=%2250%22 cy=%220%22 fill=%22hsla(0, 0%25, 100%25, 0.2)%22 stroke=%22none%22%3E%3C/circle%3E%3Crect width=%2250%22 height=%2250%22 x=%220%22 y=%2250%22%3E%3C/rect%3E%3Ccircle r=%222%22 cx=%220%22 cy=%2250%22 fill=%22hsla(0, 0%25, 100%25, 0.2)%22 stroke=%22none%22%3E%3C/circle%3E%3Crect width=%2250%22 height=%2250%22 x=%2250%22 y=%2250%22%3E%3C/rect%3E%3Ccircle r=%222%22 cx=%2250%22 cy=%2250%22 fill=%22hsla(0, 0%25, 100%25, 0.2)%22 stroke=%22none%22%3E%3C/circle%3E%3C/g%3E%3C/svg%3E");
+}
+
 /* Added smooth scroll behavior */
 html {
   scroll-behavior: smooth;
@@ -225,4 +255,121 @@ html {
 .mask-gradient-vertical {
   mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+
+/* Added Learn More button styles */
+.button01 {
+  --button-bg: #000;
+  --button-bg-2: #222;
+  --button-bg-pixel: #fff;
+  --text-color: #fff;
+  position: relative;
+  display: inline-flex;
+  background: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.button01:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.button01_bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.button01_bg-mid {
+  flex: 1;
+  background: var(--button-bg-2);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.button01:hover .button01_bg-mid {
+  transform: scaleX(1);
+}
+
+.button01_bg-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.button01:hover .button01_bg-right {
+  transform: translateX(0);
+}
+
+.button01_bg-right-overlay {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.button01:hover .button01_bg-right-overlay {
+  opacity: 1;
+}
+
+.button01_bg-pixel {
+  background: var(--button-bg-pixel);
+  opacity: calc(0.1 + var(--index) * 0.1);
+}
+
+.button01_inner {
+  position: relative;
+  z-index: 1;
+  padding: 8px 16px;
+}
+
+.button01_text {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.button01:hover .button01_text {
+  transform: translateX(-4px);
+}
+
+/* Added smooth loading transitions */
+@keyframes smooth-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-smooth-fade-in {
+  animation: smooth-fade-in 0.6s ease-out forwards;
+}
+
+/* Lazy load fade in */
+[data-lazy-loaded] {
+  animation: smooth-fade-in 0.5s ease-out forwards;
 }

@@ -1,5 +1,6 @@
 "use client"
 import { PricingSection } from "@/components/ui/pricing"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
 const PLANS = [
   {
@@ -73,7 +74,9 @@ export default function PricingSectionComponent() {
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
         <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 sm:mb-6">
-            <span className="text-xs sm:text-sm text-muted-foreground">Pricing</span>
+            <AnimatedShinyText className="text-xs sm:text-sm text-muted-foreground" shimmerWidth={60}>
+              Pricing
+            </AnimatedShinyText>
           </div>
         </div>
         <PricingSection

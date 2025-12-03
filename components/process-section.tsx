@@ -5,14 +5,17 @@ import { Box, Code, Lightbulb, Rocket, Search } from "lucide-react"
 import { GlowingEffect } from "@/components/ui/glowing-effect"
 import { cn } from "@/lib/utils"
 import { ScrollTextEffect } from "@/components/ui/text-effect"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
 export function ProcessSection() {
   return (
     <section className="py-16 sm:py-20 md:py-24 bg-black relative" id="process">
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center justify-center border border-white/20 py-1 px-3 sm:px-4 rounded-full text-xs font-medium text-white/80 backdrop-blur-sm mb-4">
-            How We Work
+          <div className="inline-flex items-center justify-center border border-white/20 py-1 px-3 sm:px-4 rounded-full text-xs font-medium backdrop-blur-sm mb-4">
+            <AnimatedShinyText className="text-white/80" shimmerWidth={80}>
+              How We Work
+            </AnimatedShinyText>
           </div>
           <ScrollTextEffect
             preset="blur"

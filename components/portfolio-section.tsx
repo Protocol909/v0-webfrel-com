@@ -1,6 +1,8 @@
 "use client"
 import { Package, Sparkles, Zap, Calendar } from "lucide-react"
 import TimeLine_01, { type TimeLine_01Entry } from "@/components/ui/release-time-line"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
+import Link from "next/link"
 
 const portfolioEntries: TimeLine_01Entry[] = [
   {
@@ -80,11 +82,28 @@ const portfolioEntries: TimeLine_01Entry[] = [
 
 export function PortfolioSection() {
   return (
-    <TimeLine_01
-      title="Featured Projects"
-      description="Explore our portfolio of successful digital transformations and creative solutions."
-      entries={portfolioEntries}
-      useTextEffect={true}
-    />
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-transparent">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8">
+        <div className="mx-auto max-w-3xl text-center mb-10 sm:mb-12 md:mb-16">
+          <Link
+            href="https://webfrel.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 sm:mb-6 hover:bg-white/10 transition-colors cursor-pointer"
+          >
+            <AnimatedShinyText className="text-xs sm:text-sm text-muted-foreground" shimmerWidth={60}>
+              Our Work
+            </AnimatedShinyText>
+          </Link>
+        </div>
+      </div>
+      <TimeLine_01
+        title="Featured Projects"
+        description="Explore our portfolio of successful digital transformations and creative solutions."
+        entries={portfolioEntries}
+        useTextEffect={true}
+        hideHeader={true}
+      />
+    </section>
   )
 }

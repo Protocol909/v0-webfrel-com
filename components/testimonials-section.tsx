@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Star } from "lucide-react"
 import { BorderBeam } from "@/components/ui/border-beam"
 import { ScrollTextEffect } from "@/components/ui/text-effect"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
 
 const testimonials = [
   {
@@ -37,7 +38,9 @@ export function TestimonialsSection() {
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 sm:mb-6">
-            <span className="text-xs sm:text-sm text-muted-foreground">Testimonials</span>
+            <AnimatedShinyText className="text-xs sm:text-sm text-muted-foreground" shimmerWidth={80}>
+              Testimonials
+            </AnimatedShinyText>
           </div>
           <ScrollTextEffect
             preset="blur"

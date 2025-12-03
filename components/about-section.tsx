@@ -1,16 +1,20 @@
 "use client"
 
-import { TextFade } from "@/components/ui/text-fade"
 import { ScrollTextEffect } from "@/components/ui/text-effect"
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text"
+import { HoverPreviewText } from "@/components/ui/hover-preview"
+import { motion } from "framer-motion"
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-16 sm:py-20 md:py-24 relative bg-black">
+    <section id="about" className="py-8 sm:py-12 md:py-16 relative bg-black">
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-4 sm:mb-6">
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+          <div className="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-3 sm:mb-4">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs sm:text-sm text-muted-foreground">Our Mission</span>
+            <AnimatedShinyText className="text-xs sm:text-sm text-muted-foreground" shimmerWidth={80}>
+              Our Mission
+            </AnimatedShinyText>
           </div>
 
           <ScrollTextEffect
@@ -22,19 +26,14 @@ export function AboutSection() {
             Unlock the full potential of your digital identity
           </ScrollTextEffect>
 
-          <div className="mb-4 sm:mb-6 text-white/80">
-            <TextFade
-              text="Webfrel is a full-service digital agency platform designed to help individuals, startups, and businesses build, scale, and optimize their online presence."
-              wordClassName="text-lg sm:text-xl md:text-2xl lg:text-3xl"
-            />
-          </div>
-
-          <div className="mb-4 sm:mb-6 text-white/80">
-            <TextFade
-              text="We provide cutting-edge web solutions, branding strategies, and performance-driven growth — all in one seamless platform. Our mission is to empower clients to not just exist online, but to thrive, engage, and grow with scalable, modern solutions."
-              wordClassName="text-lg sm:text-xl md:text-2xl lg:text-3xl"
-            />
-          </div>
+          <motion.div
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <HoverPreviewText className="mb-0 text-left" />
+          </motion.div>
         </div>
       </div>
     </section>

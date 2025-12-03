@@ -10,8 +10,8 @@ import useMeasure from "react-use-measure"
 type InfiniteSliderProps = {
   children: React.ReactNode
   gap?: number
-  speed?: number
-  speedOnHover?: number
+  duration?: number
+  durationOnHover?: number
   direction?: "horizontal" | "vertical"
   reverse?: boolean
   className?: string
@@ -20,17 +20,18 @@ type InfiniteSliderProps = {
 export function InfiniteSlider({
   children,
   gap = 16,
-  speed = 100,
-  speedOnHover,
+  duration = 40, // Changed from speed to duration for slower animation
+  durationOnHover = 80, // Slower on hover
   direction = "horizontal",
   reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const [currentSpeed, setCurrentSpeed] = useState(speed)
+  const [currentDuration, setCurrentDuration] = useState(duration)
   const [ref, { width, height }] = useMeasure()
   const translation = useMotionValue(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [key, setKey] = useState(0)
+  const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
     let controls: ReturnType<typeof animate> | undefined
@@ -41,16 +42,15 @@ export function InfiniteSlider({
     const from = reverse ? -contentSize / 2 : 0
     const to = reverse ? 0 : -contentSize / 2
 
-    const distanceToTravel = Math.abs(to - from)
-    const duration = distanceToTravel / currentSpeed
-
     if (isTransitioning) {
-      const remainingDistance = Math.abs(translation.get() - to)
-      const transitionDuration = remainingDistance / currentSpeed
+      const currentPos = translation.get()
+      const remainingDistance = Math.abs(currentPos - to)
+      const totalDistance = Math.abs(to - from)
+      const remainingDuration = (remainingDistance / totalDistance) * currentDuration
 
-      controls = animate(translation, [translation.get(), to], {
+      controls = animate(translation, [currentPos, to], {
         ease: "linear",
-        duration: transitionDuration,
+        duration: remainingDuration,
         onComplete: () => {
           setIsTransitioning(false)
           setKey((prevKey) => prevKey + 1)
@@ -60,7 +60,7 @@ export function InfiniteSlider({
       translation.set(from)
       controls = animate(translation, [from, to], {
         ease: "linear",
-        duration: duration,
+        duration: currentDuration,
         repeat: Number.POSITIVE_INFINITY,
         repeatType: "loop",
         repeatDelay: 0,
@@ -68,23 +68,22 @@ export function InfiniteSlider({
     }
 
     return () => controls?.stop()
-  }, [key, translation, currentSpeed, width, height, gap, isTransitioning, direction, reverse])
+  }, [key, translation, currentDuration, width, height, gap, isTransitioning, direction, reverse])
 
-  const hoverProps = speedOnHover
-    ? {
-        onHoverStart: () => {
-          setIsTransitioning(true)
-          setCurrentSpeed(speedOnHover)
-        },
-        onHoverEnd: () => {
-          setIsTransitioning(true)
-          setCurrentSpeed(speed)
-        },
-      }
-    : {}
+  const handleMouseEnter = () => {
+    setIsHovering(true)
+    setIsTransitioning(true)
+    setCurrentDuration(durationOnHover)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+    setIsTransitioning(true)
+    setCurrentDuration(duration)
+  }
 
   return (
-    <div className={cn("overflow-hidden", className)}>
+    <div className={cn("overflow-hidden", className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <motion.div
         className="flex w-max"
         style={{
@@ -93,7 +92,6 @@ export function InfiniteSlider({
           flexDirection: direction === "horizontal" ? "row" : "column",
         }}
         ref={ref}
-        {...hoverProps}
       >
         {children}
         {children}

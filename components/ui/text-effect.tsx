@@ -217,7 +217,6 @@ export function TextEffect({
   )
 }
 
-// Scroll-triggered text effect that reverses when scrolling back
 export function ScrollTextEffect({
   children,
   per = "word",
@@ -229,8 +228,8 @@ export function ScrollTextEffect({
   const ref = useRef(null)
   const isInView = useInView(ref, {
     once: false,
-    amount: 0.5,
-    margin: "-100px",
+    amount: 0.3,
+    margin: "-50px 0px -50px 0px",
   })
 
   let segments: string[]
@@ -264,7 +263,7 @@ export function ScrollTextEffect({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={containerVariants}
-      className={cn("whitespace-pre-wrap", className)}
+      className={cn("whitespace-pre-wrap break-words", className)}
     >
       {segments.map((segment, index) => (
         <motion.span

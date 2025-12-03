@@ -21,7 +21,7 @@ const CTASection = lazy(() => import("@/components/cta-section-new").then((m) =>
 
 function LoadingFallback() {
   return (
-    <div className="w-full h-64 flex items-center justify-center bg-black">
+    <div className="w-full h-64 flex items-center justify-center" style={{ backgroundColor: "#000000" }}>
       <motion.div
         className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full"
         animate={{ rotate: 360 }}
@@ -33,7 +33,7 @@ function LoadingFallback() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black scroll-smooth">
+    <main className="min-h-screen scroll-smooth" style={{ backgroundColor: "#000000" }}>
       <MiniNavbar />
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>

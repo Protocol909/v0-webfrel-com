@@ -39,7 +39,7 @@ export function HeroSection() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
 
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10 w-full flex-1 flex flex-col justify-center">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10 w-full flex flex-col justify-center">
         <motion.div
           className="text-center space-y-4 sm:space-y-5 md:space-y-6 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -105,13 +105,13 @@ export function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="mt-8 sm:mt-10 md:mt-12 relative w-full"
+          className="mt-4 sm:mt-6 md:mt-8 relative w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
           <div className="w-full">
-            <div className="text-center text-lg sm:text-xl md:text-2xl text-foreground mb-6">
+            <div className="text-center text-lg sm:text-xl md:text-2xl text-foreground mb-4">
               <span className="text-white/60">Trusted by experts.</span>
               <br />
               <span className="text-white font-medium">Used by the leaders.</span>
@@ -152,7 +152,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="relative -mt-16 sm:-mt-20 h-48 sm:h-64 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
+          <div className="relative -mt-12 sm:-mt-16 h-32 sm:h-40 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
             <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-20" />
             <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-black" />
             <SparklesCompanies
@@ -166,7 +166,7 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
     </section>
   )
 }

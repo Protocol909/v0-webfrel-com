@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { ScrollTextEffect } from "@/components/ui/text-effect"
+import Link from "next/link"
 
 export function CTASection() {
   return (
@@ -10,7 +11,13 @@ export function CTASection() {
       <div className="absolute inset-0 bg-gradient-to-t from-accent/10 via-transparent to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center p-8 sm:p-12 md:p-16 border border-white/20 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md">
+        <div
+          className="max-w-4xl mx-auto text-center p-8 sm:p-12 md:p-16 border border-white/20 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md"
+          style={{
+            boxShadow:
+              "0 0 60px 10px rgba(255, 255, 255, 0.1), 0 0 100px 20px rgba(255, 255, 255, 0.05), inset 0 0 60px 10px rgba(255, 255, 255, 0.03)",
+          }}
+        >
           <ScrollTextEffect
             preset="blur"
             per="word"
@@ -25,17 +32,23 @@ export function CTASection() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Button
               size="lg"
-              className="bg-white text-black hover:bg-white/90 group w-full sm:w-auto text-sm sm:text-base"
+              className="bg-white text-black hover:bg-white/90 hover:text-black group w-full sm:w-auto text-sm sm:text-base"
+              asChild
             >
-              Start Your Project
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Link href="https://discord.gg/x67yNjVtPz" target="_blank" rel="noopener noreferrer">
+                Start Your Project
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-white/20 hover:bg-white/5 bg-transparent w-full sm:w-auto text-sm sm:text-base"
+              className="border-white/20 hover:bg-white/5 hover:text-white text-white bg-transparent w-full sm:w-auto text-sm sm:text-base"
+              asChild
             >
-              Book a Consultation
+              <Link href="https://cal.com/webfrel/secret" target="_blank" rel="noopener noreferrer">
+                Book a Consultation
+              </Link>
             </Button>
           </div>
         </div>

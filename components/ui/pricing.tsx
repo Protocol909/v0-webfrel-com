@@ -197,13 +197,15 @@ export function PricingCard({ plan, className, frequency = frequencies[0], ...pr
           className={cn(
             "w-full",
             plan.highlighted
-              ? "bg-white text-black hover:bg-white/90"
-              : "border-white/20 bg-transparent text-white hover:bg-white/10",
+              ? "bg-white text-black hover:bg-white/90 hover:text-black"
+              : "border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white",
           )}
           variant={plan.highlighted ? "default" : "outline"}
           asChild
         >
-          <Link href={plan.btn.href}>{plan.btn.text}</Link>
+          <Link href={plan.btn.href} target="_blank" rel="noopener noreferrer">
+            {plan.btn.text}
+          </Link>
         </Button>
       </div>
     </div>

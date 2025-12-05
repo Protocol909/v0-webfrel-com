@@ -1,4 +1,5 @@
 "use client"
+import { memo, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Sparkles, ArrowRight } from "lucide-react"
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect"
@@ -11,16 +12,33 @@ import Link from "next/link"
 import Image from "next/image"
 
 const logos = [
-  { id: "logo1", src: "/logo1.jpg", alt: "Partner Logo 1" },
-  { id: "logo2", src: "/logo2.jpg", alt: "Partner Logo 2" },
-  { id: "logo3", src: "/logo3.jpg", alt: "Partner Logo 3" },
-  { id: "logo4", src: "/logo4.jpg", alt: "Partner Logo 4" },
-  { id: "logo5", src: "/logo5.jpg", alt: "Partner Logo 5" },
-  { id: "logo6", src: "/logo6.jpg", alt: "Partner Logo 6" },
-  { id: "logo7", src: "/logo7.jpg", alt: "Partner Logo 7" },
+  { id: "logo1", src: "/placeholder.svg?height=48&width=128", alt: "Partner Logo 1" },
+  { id: "logo2", src: "/placeholder.svg?height=48&width=128", alt: "Partner Logo 2" },
+  { id: "logo3", src: "/placeholder.svg?height=48&width=128", alt: "Partner Logo 3" },
+  { id: "logo4", src: "/placeholder.svg?height=48&width=128", alt: "Partner Logo 4" },
+  { id: "logo5", src: "/placeholder.svg?height=48&width=128", alt: "Partner Logo 5" },
+  { id: "logo6", src: "/placeholder.svg?height=48&width=128", alt: "Partner Logo 6" },
+  { id: "logo7", src: "/placeholder.svg?height=48&width=128", alt: "Partner Logo 7" },
 ]
 
+const LogoItem = memo(function LogoItem({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="flex-shrink-0 w-24 sm:w-28 md:w-32 h-10 sm:h-12 relative opacity-70 hover:opacity-100 transition-opacity">
+      <Image
+        src={src || "/placeholder.svg"}
+        alt={alt}
+        fill
+        className="object-contain filter brightness-0 invert"
+        sizes="(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"
+        loading="lazy"
+      />
+    </div>
+  )
+})
+
 export function HeroSection() {
+  const memoizedLogos = useMemo(() => logos, [])
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 sm:pt-32 md:pt-24 pb-0">
       <div className="absolute inset-0">
@@ -88,55 +106,41 @@ export function HeroSection() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-10 md:mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            <HoverBorderGradient
-              containerClassName="rounded-full"
-              as="button"
-              className="bg-black text-white flex items-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base"
-            >
-              <ArrowRight className="w-4 h-4" />
-              <span>Book a Meeting</span>
-            </HoverBorderGradient>
+            <Link href="https://cal.com/webfrel/secret" target="_blank" rel="noopener noreferrer">
+              <HoverBorderGradient
+                containerClassName="rounded-full"
+                as="button"
+                className="bg-black text-white flex items-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span>Book a Meeting</span>
+              </HoverBorderGradient>
+            </Link>
           </motion.div>
         </motion.div>
 
         <motion.div
-          className="mt-4 sm:mt-6 md:mt-8 relative w-full"
+          className="mt-10 sm:mt-12 md:mt-16 relative w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
           <div className="w-full">
-            <div className="text-center text-lg sm:text-xl md:text-2xl text-foreground mb-4">
+            <div className="text-center text-sm sm:text-base md:text-lg lg:text-xl text-foreground mb-4">
               <span className="text-white/60">Trusted by experts.</span>
               <br />
               <span className="text-white font-medium">Used by the leaders.</span>
             </div>
 
             <div className="relative w-screen -ml-[50vw] left-1/2 h-[60px] sm:h-[80px]">
-              <InfiniteSlider
-                className="flex h-full w-full items-center"
-                duration={50} // Slower duration
-                durationOnHover={100} // Even slower on hover
-                gap={60}
-              >
-                {logos.map(({ id, src, alt }) => (
-                  <div
-                    key={id}
-                    className="flex-shrink-0 w-24 sm:w-28 md:w-32 h-10 sm:h-12 relative opacity-70 hover:opacity-100 transition-opacity"
-                  >
-                    <Image
-                      src={src || "/placeholder.svg"}
-                      alt={alt}
-                      fill
-                      className="object-contain filter brightness-0 invert"
-                      sizes="(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"
-                    />
-                  </div>
+              <InfiniteSlider className="flex h-full w-full items-center" duration={50} durationOnHover={100} gap={60}>
+                {memoizedLogos.map(({ id, src, alt }) => (
+                  <LogoItem key={id} src={src} alt={alt} />
                 ))}
               </InfiniteSlider>
               <ProgressiveBlur
@@ -152,13 +156,13 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="relative -mt-12 sm:-mt-16 h-32 sm:h-40 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
+          <div className="relative -mt-8 sm:-mt-12 h-24 sm:h-32 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
             <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#ffffff,transparent_70%)] before:opacity-20" />
             <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-black" />
             <SparklesCompanies
-              density={800}
-              speed={0.2} // Very slow sparkles
-              opacitySpeed={0.5} // Slow opacity animation
+              density={400}
+              speed={0.1}
+              opacitySpeed={0.3}
               className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
               color="#ffffff"
             />

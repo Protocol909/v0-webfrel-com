@@ -20,7 +20,7 @@ const PLANS = [
     ],
     btn: {
       text: "Get Started",
-      href: "#contact",
+      href: "https://discord.gg/x67yNjVtPz",
     },
   },
   {
@@ -42,7 +42,7 @@ const PLANS = [
     ],
     btn: {
       text: "Get Started",
-      href: "#contact",
+      href: "https://discord.gg/x67yNjVtPz",
     },
   },
   {
@@ -63,7 +63,7 @@ const PLANS = [
     ],
     btn: {
       text: "Contact Us",
-      href: "#contact",
+      href: "https://wa.link/w01uso",
     },
   },
 ]

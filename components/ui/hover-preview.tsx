@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useCallback, useRef, useEffect } from "react"
+import { useState, useCallback, useRef, useEffect, memo } from "react"
 
 interface PreviewData {
   image: string
@@ -11,17 +11,17 @@ interface PreviewData {
 
 const previewData: Record<string, PreviewData> = {
   growth: {
-    image: "/1.jpg",
+    image: "/placeholder.svg?height=160&width=280",
     title: "Growth",
     subtitle: "Scale your business to new heights",
   },
   mission: {
-    image: "/2.jpg",
+    image: "/placeholder.svg?height=160&width=280",
     title: "Our Mission",
     subtitle: "Empowering digital success",
   },
   modern: {
-    image: "/3.jpg",
+    image: "/placeholder.svg?height=160&width=280",
     title: "Modern Solutions",
     subtitle: "Cutting-edge technology",
   },
@@ -35,7 +35,13 @@ interface HoverLinkProps {
   onHoverEnd: () => void
 }
 
-const HoverLink = ({ previewKey, children, onHoverStart, onHoverMove, onHoverEnd }: HoverLinkProps) => {
+const HoverLink = memo(function HoverLink({
+  previewKey,
+  children,
+  onHoverStart,
+  onHoverMove,
+  onHoverEnd,
+}: HoverLinkProps) {
   return (
     <span
       className="text-white font-bold cursor-pointer relative inline-block transition-colors hover:text-white/90 group"
@@ -47,7 +53,7 @@ const HoverLink = ({ previewKey, children, onHoverStart, onHoverMove, onHoverEnd
       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-white via-white/80 to-white/60 transition-all duration-400 ease-out group-hover:w-full" />
     </span>
   )
-}
+})
 
 interface PreviewCardProps {
   data: PreviewData | null
@@ -56,18 +62,19 @@ interface PreviewCardProps {
   cardRef: React.RefObject<HTMLDivElement | null>
 }
 
-const PreviewCard = ({ data, position, isVisible, cardRef }: PreviewCardProps) => {
+const PreviewCard = memo(function PreviewCard({ data, position, isVisible, cardRef }: PreviewCardProps) {
   if (!data) return null
 
   return (
     <div
       ref={cardRef}
-      className={`fixed pointer-events-none z-[1000] transition-all duration-250 ${
+      className={`fixed pointer-events-none z-[1000] transition-all duration-250 will-change-transform ${
         isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2.5 scale-95"
       }`}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
+        transform: `translate3d(0, 0, 0)`,
       }}
     >
       <div className="bg-zinc-900 rounded-2xl p-2 shadow-2xl border border-white/10 backdrop-blur-xl">
@@ -76,13 +83,14 @@ const PreviewCard = ({ data, position, isVisible, cardRef }: PreviewCardProps) =
           alt={data.title || ""}
           crossOrigin="anonymous"
           className="w-[280px] h-auto rounded-xl block"
+          loading="lazy"
         />
         <div className="px-2 pt-3 pb-2 text-sm text-white font-semibold">{data.title}</div>
-        <div className="px-2 pb-2 text-xs text-zinc-500">{data.subtitle}</div>
+        <div className="px-2 pb-2 text-xs text-zinc-400">{data.subtitle}</div>
       </div>
     </div>
   )
-}
+})
 
 interface HoverPreviewTextProps {
   className?: string
@@ -148,7 +156,7 @@ export function HoverPreviewText({ className }: HoverPreviewTextProps) {
 
   return (
     <div className={className}>
-      <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed">
+      <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed">
         Webfrel is a full-service digital agency platform designed to help individuals, startups, and businesses build,
         scale, and optimize their online presence. We provide cutting-edge web solutions, branding strategies, and
         performance-driven{" "}

@@ -59,15 +59,13 @@ export function Accordion05({ items = defaultItems }: Accordion05Props) {
             <AccordionTrigger className="text-left pl-4 md:pl-14 overflow-hidden text-white/40 duration-200 hover:no-underline cursor-pointer -space-y-6 data-[state=open]:space-y-0 data-[state=open]:text-white [&>svg]:hidden py-6">
               <div className="flex flex-1 items-start gap-4">
                 <p className="text-xs text-muted-foreground">{item.id}</p>
-                <h1 className={cn("uppercase relative text-left text-xl md:text-3xl lg:text-4xl font-bold")}>
+                <h3 className={cn("uppercase relative text-left text-xl md:text-3xl lg:text-4xl font-bold")}>
                   {item.title}
-                </h1>
+                </h3>
               </div>
             </AccordionTrigger>
 
-            <AccordionContent className="text-muted-foreground pb-6 pl-4 md:px-20 text-base">
-              {item.content}
-            </AccordionContent>
+            <AccordionContent className="text-white/70 pb-6 pl-4 md:px-20 text-base">{item.content}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>

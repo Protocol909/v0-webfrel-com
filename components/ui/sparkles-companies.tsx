@@ -23,11 +23,11 @@ export function SparklesCompanies({
   className,
   size = 1,
   minSize = null,
-  density = 800,
-  speed = 0.3, // Slowed down from 1 to 0.3
+  density = 400, // Reduced default density for better performance
+  speed = 0.1, // Slowed down default speed
   minSpeed = null,
   opacity = 1,
-  opacitySpeed = 1, // Slowed down from 3 to 1
+  opacitySpeed = 0.3, // Slowed down opacity animation
   minOpacity = null,
   color = "#FFFFFF",
   background = "transparent",
@@ -55,7 +55,7 @@ export function SparklesCompanies({
       enable: false,
       zIndex: 1,
     },
-    fpsLimit: 60, // Reduced from 120 to 60 for smoother slower animation
+    fpsLimit: 30, // Reduced FPS for better mobile performance
     particles: {
       color: {
         value: color,
